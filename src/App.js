@@ -2,11 +2,19 @@ import './App.css';
 import React from "react";
 import './components/MainPage';
 import MainPage from './components/MainPage';
+import {Route, Routes} from 'react-router-dom'
+import ProductPage from './components/ProductPage'
+import UploadPage from './components/UploadPage'
 
 function App() {
     return(
         <div className='App'>
-            <MainPage/>
+            <Routes>
+                <Route path='/' element={<MainPage/>}></Route>
+                <Route path='ProductPage/:id' element={<ProductPage/>}></Route>
+                <Route path='UploadPage' element={<UploadPage/>}></Route>
+            </Routes>
+            <ProductPage></ProductPage>
         </div>
     )
 }
