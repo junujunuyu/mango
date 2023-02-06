@@ -1,5 +1,6 @@
-#back-btn{display: flex;margin: 20px auto;padding: 10px 20px;background: #b5fa5b;}
-#image-box{height: 300px;
+#back-btn{display: flex;margin: 20px auto;padding: 10px 20px;background: #b5fa5b; border: none;outline: none;}
+.image-box{height: 300px;
+        text-align: center;
     img{height: 100%;}
 }
 #profile-box{
@@ -8,6 +9,7 @@
     border-bottom: 1px solid #f16060;
     display: flex;
     align-items: center;
+    text-align: center;
     img{
         width: 30px;
         height: 30px;
