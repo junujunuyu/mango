@@ -1,46 +1,53 @@
-import React, { /* useState */ } from 'react';
-import { Button, /* Upload ,*/ message, InputNumber, Form, Input, Divider } from 'antd';
+import { Button,  Upload , message, InputNumber, Form, Input, Divider} from 'antd';
 import './UploadPage.scss'
+import {useState} from 'react';
 import {useNavigate} from "react-router-dom"
+import { API_URL } from '../config/constants';
 import axios from 'axios';
 
-
 const UploadPage = () => {
-    /* const[imageUrl,setImageUrl] = useState(null); */
+    const[imageUrl,setImageUrl] = useState(null); 
     const history=useNavigate();
     const onSubmit = (values) => {
-        axios.post('',{
-          name:values,
+        axios.post(`${API_URL}/products`,{
+          name:values.name,
           description:values.description,
           seller:values.seller,
-          price:values.price,
-          /* imageUrl:imageUrl, */
+          price: parseInt(values.price),
+          imageUrl,
         }).then((result)=>{
           console.log(result);
           history('/' ,{replace:true});
         }).catch((error)=>{
           console.log(error);
-          message.error(`에러가 발생했습니다. ${error.message}`)
+          message.error(`에러가 발생했습니다. ${error}`)
         });
 
     };
     const onChangeImage = (info) => {
-      /* if(){
+      if(info.file.status==='uploading'){
         return;
       }
-      if(){
-        setImageUrl(imageUrl)
-      } */
+      if(info.file.status==='done'){
+        const response=info.file.response;
+        const imageUrl=response.imageUrl;
+        setImageUrl(imageUrl);
+      } 
     }
 
     return (
       <div id="upload-container">
-      <Form name="uploadFrom" onFinish={onSubmit}>
+      <Form name="uploadForm" onFinish={onSubmit} initialValues={{price:0}}>
           <Form.Item name="upload" label={<div className='upload-label'>상품 사진</div>}>
-              <div id="upload-img" onChange={onChangeImage}>
-                  <img src="/images/icons/camera.png" alt="" />
-                  <span>이미지를 업로드 해주세요</span>
-              </div>
+              <Upload name='image' action={`${API_URL}/image`} listType='picture' showUploadList={false} onChange={onChangeImage}>
+                  {imageUrl ? (<img id="upload-img" src={`${API_URL}/${imageUrl}`}  alt=""/>
+                  ):(
+                    <div id="upload-img" onChange={onChangeImage}>
+                      <img src="/images/icons/camera.png" alt="" />
+                      <span>이미지를 업로드 해주세요</span>
+                    </div>
+                  )}
+              </Upload>
           </Form.Item>
           <Divider />
           <Form.Item label={<span className='upload-label'>판매자명</span>}  name="seller" rules={[ { required: true, message: '판매자명을 입력해주세요' }]}>
@@ -62,7 +69,6 @@ const UploadPage = () => {
           <Form.Item>
               <Button id="submit-button" size='large' htmlType='submit'>상품등록하기</Button>
           </Form.Item>
-          
       </Form>
   </div>
 

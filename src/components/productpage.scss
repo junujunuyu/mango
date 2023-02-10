@@ -1,7 +1,6 @@
 #back-btn{display: flex;margin: 20px auto;padding: 10px 20px;background: #b5fa5b; border: none;outline: none;}
-.image-box{height: 300px;
-        text-align: center;
-    img{height: 100%;}
+.image-box{max-height: 300px;max-width: 100%;width: 100%;text-align: center;
+    img{height: 100%;max-width: 300px;}
 }
 #profile-box{
     padding:16px;
@@ -22,9 +21,10 @@
 }
 #contents-box{
     padding: 16px;
-    #name{font-size: 20px;font-weight: 400;}
-    #price{font-size: 16px;font-weight: 600;}
+    #name{font-size: 20px;font-weight: 400;margin-bottom: 10px;}
+    #price{font-size: 16px;font-weight: 600;margin-bottom: 5px;}
     #createAt{font-size: 12px;color: rgba(204, 204, 204,1);}
+    .payment{margin: 20px 0 0 0;}
     #description{margin-top: 16px;}
 }
 
